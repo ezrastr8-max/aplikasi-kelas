@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Nexus Class XII.2 App Hub</title>
   
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
   <script>
@@ -23,6 +24,7 @@
     }
   </script>
 
+  <!-- Google Fonts & Icon Libraries -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -94,10 +96,9 @@
       </div>
 
       <div class="relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 bg-slate-900 mb-2 border-b">
-        <video autoplay loop muted playsinline preload="auto" style="width: 100%; object-fit: cover; pointer-events: none;">
-  <source src="video1.mp4" type="video/mp4">
+        <video autoplay loop muted playsinline class="w-full h-full object-cover">
+          <source src="video1.mp4" type="video/mp4">
         </video>
-        
         <div class="absolute inset-0 bg-gradient-to-t from-[#180c10] via-transparent to-transparent"></div>
       </div>
 
@@ -417,108 +418,17 @@
       };
     });
 
-    const galleryPhotos = [
-      { id: 1, formattedId: '01', title: 'Foto Kenangan #01', image: 'foto/foto1.jpg' },
-      { id: 2, formattedId: '02', title: 'Foto Kenangan #02', image: 'foto/foto2.jpg' },
-      { id: 3, formattedId: '03', title: 'Foto Kenangan #03', image: 'foto/foto3.jpg' },
-      { id: 4, formattedId: '04', title: 'Foto Kenangan #04', image: 'foto/foto4.jpg' },
-      { id: 5, formattedId: '05', title: 'Foto Kenangan #05', image: 'foto/foto5.jpg' },
-      { id: 6, formattedId: '06', title: 'Foto Kenangan #06', image: 'foto/foto6.jpg' },
-      { id: 7, formattedId: '07', title: 'Foto Kenangan #07', image: 'foto/foto7.jpg' },
-      { id: 8, formattedId: '08', title: 'Foto Kenangan #08', image: 'foto/foto8.jpg' },
-      { id: 9, formattedId: '09', title: 'Foto Kenangan #09', image: 'foto/foto9.jpg' },
-      { id: 10, formattedId: '10', title: 'Foto Kenangan #10', image: 'foto/foto10.jpg' },
-      { id: 11, formattedId: '11', title: 'Foto Kenangan #11', image: 'foto/foto11.jpg' },
-      { id: 12, formattedId: '12', title: 'Foto Kenangan #12', image: 'foto/foto12.jpg' },
-      { id: 13, formattedId: '13', title: 'Foto Kenangan #13', image: 'foto/foto13.jpg' },
-      { id: 14, formattedId: '14', title: 'Foto Kenangan #14', image: 'foto/foto14.jpg' },
-      { id: 15, formattedId: '15', title: 'Foto Kenangan #15', image: 'foto/foto15.jpg' },
-      { id: 16, formattedId: '16', title: 'Foto Kenangan #16', image: 'foto/foto16.jpg' },
-      { id: 17, formattedId: '17', title: 'Foto Kenangan #17', image: 'foto/foto17.jpg' },
-      { id: 18, formattedId: '18', title: 'Foto Kenangan #18', image: 'foto/foto18.jpg' },
-      { id: 19, formattedId: '19', title: 'Foto Kenangan #19', image: 'foto/foto19.jpg' },
-      { id: 20, formattedId: '20', title: 'Foto Kenangan #20', image: 'foto/foto20.jpg' },
-      { id: 21, formattedId: '21', title: 'Foto Kenangan #21', image: 'foto/foto21.jpg' },
-      { id: 22, formattedId: '22', title: 'Foto Kenangan #22', image: 'foto/foto22.jpg' },
-      { id: 23, formattedId: '23', title: 'Foto Kenangan #23', image: 'foto/foto23.jpg' },
-      { id: 24, formattedId: '24', title: 'Foto Kenangan #24', image: 'foto/foto24.jpg' },
-      { id: 25, formattedId: '25', title: 'Foto Kenangan #25', image: 'foto/foto25.jpg' },
-      { id: 26, formattedId: '26', title: 'Foto Kenangan #26', image: 'foto/foto26.jpg' },
-      { id: 27, formattedId: '27', title: 'Foto Kenangan #27', image: 'foto/foto27.jpg' },
-      { id: 28, formattedId: '28', title: 'Foto Kenangan #28', image: 'foto/foto28.jpg' },
-      { id: 29, formattedId: '29', title: 'Foto Kenangan #29', image: 'foto/foto29.jpg' },
-      { id: 30, formattedId: '30', title: 'Foto Kenangan #30', image: 'foto/foto30.jpg' },
-      { id: 31, formattedId: '31', title: 'Foto Kenangan #31', image: 'foto/foto31.jpg' },
-      { id: 32, formattedId: '32', title: 'Foto Kenangan #32', image: 'foto/foto32.jpg' },
-      { id: 33, formattedId: '33', title: 'Foto Kenangan #33', image: 'foto/foto33.jpg' },
-      { id: 34, formattedId: '34', title: 'Foto Kenangan #34', image: 'foto/foto34.jpg' },
-      { id: 35, formattedId: '35', title: 'Foto Kenangan #35', image: 'foto/foto35.jpg' },
-      { id: 36, formattedId: '36', title: 'Foto Kenangan #36', image: 'foto/foto36.jpg' },
-      { id: 37, formattedId: '37', title: 'Foto Kenangan #37', image: 'foto/foto37.jpg' },
-      { id: 38, formattedId: '38', title: 'Foto Kenangan #38', image: 'foto/foto38.jpg' },
-      { id: 39, formattedId: '39', title: 'Foto Kenangan #39', image: 'foto/foto39.jpg' },
-      { id: 40, formattedId: '40', title: 'Foto Kenangan #40', image: 'foto/foto40.jpg' },
-      { id: 41, formattedId: '41', title: 'Foto Kenangan #41', image: 'foto/foto41.jpg' },
-      { id: 42, formattedId: '42', title: 'Foto Kenangan #42', image: 'foto/foto42.jpg' },
-      { id: 43, formattedId: '43', title: 'Foto Kenangan #43', image: 'foto/foto43.jpg' },
-      { id: 44, formattedId: '44', title: 'Foto Kenangan #44', image: 'foto/foto44.jpg' },
-      { id: 45, formattedId: '45', title: 'Foto Kenangan #45', image: 'foto/foto45.jpg' },
-      { id: 46, formattedId: '46', title: 'Foto Kenangan #46', image: 'foto/foto46.jpg' },
-      { id: 47, formattedId: '47', title: 'Foto Kenangan #47', image: 'foto/foto47.jpg' },
-      { id: 48, formattedId: '48', title: 'Foto Kenangan #48', image: 'foto/foto48.jpg' },
-      { id: 49, formattedId: '49', title: 'Foto Kenangan #49', image: 'foto/foto49.jpg' },
-      { id: 50, formattedId: '50', title: 'Foto Kenangan #50', image: 'foto/foto50.jpg' },
-      { id: 51, formattedId: '51', title: 'Foto Kenangan #51', image: 'foto/foto51.jpg' },
-      { id: 52, formattedId: '52', title: 'Foto Kenangan #52', image: 'foto/foto52.jpg' },
-      { id: 53, formattedId: '53', title: 'Foto Kenangan #53', image: 'foto/foto53.jpg' },
-      { id: 54, formattedId: '54', title: 'Foto Kenangan #54', image: 'foto/foto54.jpg' },
-      { id: 55, formattedId: '55', title: 'Foto Kenangan #55', image: 'foto/foto55.jpg' },
-      { id: 56, formattedId: '56', title: 'Foto Kenangan #56', image: 'foto/foto56.jpg' },
-      { id: 57, formattedId: '57', title: 'Foto Kenangan #57', image: 'foto/foto57.jpg' },
-      { id: 58, formattedId: '58', title: 'Foto Kenangan #58', image: 'foto/foto58.jpg' },
-      { id: 59, formattedId: '59', title: 'Foto Kenangan #59', image: 'foto/foto59.jpg' },
-      { id: 60, formattedId: '60', title: 'Foto Kenangan #60', image: 'foto/foto60.jpg' },
-      { id: 61, formattedId: '61', title: 'Foto Kenangan #61', image: 'foto/foto61.jpg' },
-      { id: 62, formattedId: '62', title: 'Foto Kenangan #62', image: 'foto/foto62.jpg' },
-      { id: 63, formattedId: '63', title: 'Foto Kenangan #63', image: 'foto/foto63.jpg' },
-      { id: 64, formattedId: '64', title: 'Foto Kenangan #64', image: 'foto/foto64.jpg' },
-      { id: 65, formattedId: '65', title: 'Foto Kenangan #65', image: 'foto/foto65.jpg' },
-      { id: 66, formattedId: '66', title: 'Foto Kenangan #66', image: 'foto/foto66.jpg' },
-      { id: 67, formattedId: '67', title: 'Foto Kenangan #67', image: 'foto/foto67.jpg' },
-      { id: 68, formattedId: '68', title: 'Foto Kenangan #68', image: 'foto/foto68.jpg' },
-      { id: 69, formattedId: '69', title: 'Foto Kenangan #69', image: 'foto/foto69.jpg' },
-      { id: 70, formattedId: '70', title: 'Foto Kenangan #70', image: 'foto/foto70.jpg' },
-      { id: 71, formattedId: '71', title: 'Foto Kenangan #71', image: 'foto/foto71.jpg' },
-      { id: 72, formattedId: '72', title: 'Foto Kenangan #72', image: 'foto/foto72.jpg' },
-      { id: 73, formattedId: '73', title: 'Foto Kenangan #73', image: 'foto/foto73.jpg' },
-      { id: 74, formattedId: '74', title: 'Foto Kenangan #74', image: 'foto/foto74.jpg' },
-      { id: 75, formattedId: '75', title: 'Foto Kenangan #75', image: 'foto/foto75.jpg' },
-      { id: 76, formattedId: '76', title: 'Foto Kenangan #76', image: 'foto/foto76.jpg' },
-      { id: 77, formattedId: '77', title: 'Foto Kenangan #77', image: 'foto/foto77.jpg' },
-      { id: 78, formattedId: '78', title: 'Foto Kenangan #78', image: 'foto/foto78.jpg' },
-      { id: 79, formattedId: '79', title: 'Foto Kenangan #79', image: 'foto/foto79.jpg' },
-      { id: 80, formattedId: '80', title: 'Foto Kenangan #80', image: 'foto/foto80.jpg' },
-      { id: 81, formattedId: '81', title: 'Foto Kenangan #81', image: 'foto/foto81.jpg' },
-      { id: 82, formattedId: '82', title: 'Foto Kenangan #82', image: 'foto/foto82.jpg' },
-      { id: 83, formattedId: '83', title: 'Foto Kenangan #83', image: 'foto/foto83.jpg' },
-      { id: 84, formattedId: '84', title: 'Foto Kenangan #84', image: 'foto/foto84.jpg' },
-      { id: 85, formattedId: '85', title: 'Foto Kenangan #85', image: 'foto/foto85.jpg' },
-      { id: 86, formattedId: '86', title: 'Foto Kenangan #86', image: 'foto/foto86.jpg' },
-      { id: 87, formattedId: '87', title: 'Foto Kenangan #87', image: 'foto/foto87.jpg' },
-      { id: 88, formattedId: '88', title: 'Foto Kenangan #88', image: 'foto/foto88.jpg' },
-      { id: 89, formattedId: '89', title: 'Foto Kenangan #89', image: 'foto/foto89.jpg' },
-      { id: 90, formattedId: '90', title: 'Foto Kenangan #90', image: 'foto/foto90.jpg' },
-      { id: 91, formattedId: '91', title: 'Foto Kenangan #91', image: 'foto/foto91.jpg' },
-      { id: 92, formattedId: '92', title: 'Foto Kenangan #92', image: 'foto/foto92.jpg' },
-      { id: 93, formattedId: '93', title: 'Foto Kenangan #93', image: 'foto/foto93.jpg' },
-      { id: 94, formattedId: '94', title: 'Foto Kenangan #94', image: 'foto/foto94.jpg' },
-      { id: 95, formattedId: '95', title: 'Foto Kenangan #95', image: 'foto/foto95.jpg' },
-      { id: 96, formattedId: '96', title: 'Foto Kenangan #96', image: 'foto/foto96.jpg' },
-      { id: 97, formattedId: '97', title: 'Foto Kenangan #97', image: 'foto/foto97.jpg' },
-      { id: 98, formattedId: '98', title: 'Foto Kenangan #98', image: 'foto/foto98.jpg' },
-      { id: 99, formattedId: '99', title: 'Foto Kenangan #99', image: 'foto/foto99.jpg' },
-      { id: 100, formattedId: '100', title: 'Foto Kenangan #100', image: 'foto/foto100.jpg' }
-    ];
+    // Otomatis membuat array 100 foto
+    const galleryPhotos = Array.from({ length: 100 }, (_, i) => {
+      const id = i + 1;
+      const formattedId = id < 10 ? '0' + id : `${id}`;
+      return {
+        id: id,
+        formattedId: formattedId,
+        title: `Foto Kenangan #${formattedId}`,
+        image: `foto/foto${id}.jpg`
+      };
+    });
 
     const scheduleMapel = [
       { hari: 'Senin', mapel: [
@@ -686,7 +596,7 @@
         </div>
       `).join('');
 
-      // RENDER DAFTAR SISWA (TANPA FOTO/KLIK)
+      // RENDER DAFTAR SISWA
       document.getElementById('studentListContainer').innerHTML = students.map(s => `
         <div class="nexus-card p-2.5 rounded-xl border border-white/10 flex items-center justify-between transition">
           <div class="flex items-center space-x-2.5 overflow-hidden">
