@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Nexus Class XII.2 App Hub</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            nexusDark: '#0a0507',
+            nexusCard: '#180c10',
+            nexusAccent: '#ef4444',
+            nexusPurple: '#f43f5e'
+          }
+        }
+      }
+    }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0507;
+      color: #f3f4f6;
+      overflow-x: hidden;
+    }
+
+    .glow-bg {
+      position: absolute;
+      width: 100%;
+      height: 400px;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, rgba(225, 29, 72, 0.08) 50%, rgba(0,0,0,0) 70%);
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .nexus-card {
+      background: rgba(24, 12, 16, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .nexus-card:active, .nexus-card:hover {
+      border-color: rgba(239, 68, 68, 0.5);
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between relative pb-10">
+
+  <!-- LOADING SCREEN -->
+  <div id="loadingScreen" class="fixed inset-0 bg-[#0a0507] z-50 flex flex-col items-center justify-center space-y-4 transition-opacity duration-500">
+    <div class="relative flex items-center justify-center">
+      <div class="w-16 h-16 border-4 border-red-500/20 border-t-red-500 rounded-full animate-spin"></div>
+      <img src="logo1.png" onerror="this.src='https://via.placeholder.com/150/ef4444/ffffff?text=XII.2'" alt="Logo Kelas" class="w-8 h-8 absolute object-contain rounded-full">
+    </div>
+    <div class="text-center px-4">
+      <h2 class="text-white font-extrabold text-lg tracking-wider uppercase">CLASS XII.2 MIPA</h2>
+    </div>
+  </div>
+
+  <div class="glow-bg"></div>
+
+  <main id="mainContent" class="w-full max-w-md mx-auto px-3.5 pt-3 space-y-4 opacity-0 transition-opacity duration-700">
+
+    <!-- HERO PROFILE BANNER WIDGET -->
+    <div data-aos="fade-down" class="nexus-card rounded-2xl overflow-hidden border border-red-500/30 shadow-2xl p-3.5">
+      <div class="flex justify-between items-center mb-2.5">
+        <div class="flex items-center space-x-2">
+          <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+          <span class="text-[10px] font-bold tracking-widest text-red-400 uppercase">KENANGAN XII.2 MIPA</span>
+        </div>
+      </div>
+
+      <div class="relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 bg-slate-900 mb-2 border-b">
+        <video autoplay loop muted playsinline class="w-full h-full object-cover">
+          <source src="video1.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#180c10] via-transparent to-transparent"></div>
+      </div>
+
+      <div class="flex flex-col pt-1">
+        <div class="flex items-center space-x-2 mb-0.5">
+          <i data-lucide="code-2" class="w-5 h-5 text-red-500"></i>
+          <h1 class="text-lg font-extrabold text-white tracking-wide">Ezra Developer</h1>
+        </div>
+        <p class="text-[11px] text-gray-400">Aplikasi Hub Kenangan & Informasi Kelas XII.2 MIPA</p>
+      </div>
+    </div>
+
+    <!-- DEVICE STATUS -->
+    <div data-aos="fade-up" class="grid grid-cols-2 gap-2 text-[10px] font-mono text-gray-400">
+      <div class="nexus-card p-2 rounded-xl flex items-center space-x-2 border border-white/5">
+        <i data-lucide="globe" class="w-3.5 h-3.5 text-red-400 shrink-0"></i>
+        <span class="truncate">NEGARA: <strong class="text-white">Indonesia</strong></span>
+      </div>
+      <div class="nexus-card p-2 rounded-xl flex items-center space-x-2 border border-white/5">
+        <i data-lucide="smartphone" class="w-3.5 h-3.5 text-rose-400 shrink-0"></i>
+        <span class="truncate">DEVICE: <strong id="deviceDetect" class="text-white">Android / iPhone</strong></span>
+      </div>
+      <div class="nexus-card p-2 rounded-xl flex items-center space-x-2 border border-white/5">
+        <i data-lucide="chrome" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+        <span class="truncate">BROWSER: <strong class="text-white">Mobile Web</strong></span>
+      </div>
+      <div class="nexus-card p-2 rounded-xl flex items-center space-x-2 border border-white/5">
+        <i data-lucide="wifi" class="w-3.5 h-3.5 text-red-400 shrink-0"></i>
+        <span class="truncate">STATUS: <strong class="text-emerald-400">• Online</strong></span>
+      </div>
+    </div>
+
+    <!-- WIDGET JAM & TANGGAL -->
+    <div data-aos="fade-up" class="nexus-card p-3 rounded-xl flex items-center justify-between border border-red-500/30 bg-red-950/20 shadow-md">
+      <div class="flex items-center space-x-2.5">
+        <div class="p-2 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400">
+          <i data-lucide="clock" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <p id="liveDate" class="text-[11px] text-gray-400 font-medium">Loading Tanggal...</p>
+          <p id="liveTodayStatus" class="text-[11px] font-bold text-red-400">Jadwal Otomatis</p>
+        </div>
+      </div>
+      <div class="text-right">
+        <p id="liveClock" class="text-lg font-mono font-extrabold text-red-500 tracking-wider">00:00:00</p>
+        <span class="text-[9px] text-gray-400 font-bold uppercase tracking-widest">WIB</span>
+      </div>
+    </div>
+
+    <!-- WIDGET WALI KELAS -->
+    <div data-aos="fade-up" class="nexus-card p-3 rounded-xl flex items-center space-x-2.5 border border-amber-500/30 bg-amber-950/10 shadow-md">
+      <div class="p-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 shrink-0">
+        <i data-lucide="crown" class="w-5 h-5 text-amber-400"></i>
+      </div>
+      <div>
+        <p class="text-[10px] font-bold uppercase tracking-wider text-amber-400">WALI KELAS XII.2 MIPA</p>
+        <p class="text-xs font-extrabold text-white tracking-wide">RETNO INDARYATI, S.Pd</p>
+      </div>
+    </div>
+
+    <!-- TAB FILTER ATAS -->
+    <div data-aos="fade-up" class="flex items-center space-x-2 overflow-x-auto pb-1 no-scrollbar">
+      <button id="filterAll" onclick="switchMainTab('all')" class="filter-btn px-3.5 py-1.5 rounded-full bg-red-600 text-white font-bold text-[11px] flex items-center space-x-1.5 whitespace-nowrap shadow-md shadow-red-600/30 transition">
+        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+        <span>All Menu</span>
+      </button>
+
+      <button id="filterSiswa" onclick="switchMainTab('namasiswa')" class="filter-btn px-3.5 py-1.5 rounded-full nexus-card text-gray-400 hover:text-white font-medium text-[11px] flex items-center space-x-1.5 whitespace-nowrap transition">
+        <i data-lucide="users" class="w-3.5 h-3.5"></i>
+        <span>Siswa (32)</span>
+      </button>
+
+      <button id="filterMapel" onclick="switchMainTab('jadwalmapel')" class="filter-btn px-3.5 py-1.5 rounded-full nexus-card text-gray-400 hover:text-white font-medium text-[11px] flex items-center space-x-1.5 whitespace-nowrap transition">
+        <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+        <span>Jadwal Mapel</span>
+      </button>
+
+      <button id="filterPiket" onclick="switchMainTab('jadwalpiket')" class="filter-btn px-3.5 py-1.5 rounded-full nexus-card text-gray-400 hover:text-white font-medium text-xs flex items-center space-x-1.5 whitespace-nowrap transition">
+        <i data-lucide="broom" class="w-3.5 h-3.5"></i>
+        <span>Jadwal Piket</span>
+      </button>
+
+      <button id="filterGaleri" onclick="switchMainTab('galeri')" class="filter-btn px-3.5 py-1.5 rounded-full nexus-card text-gray-400 hover:text-white font-medium text-[11px] flex items-center space-x-1.5 whitespace-nowrap transition">
+        <i data-lucide="image" class="w-3.5 h-3.5"></i>
+        <span>Galeri Foto (100)</span>
+      </button>
+    </div>
+
+    <!-- VIEW HOME GRID -->
+    <div id="viewHomeGrid" class="space-y-3">
+      <div class="flex items-center justify-between px-1">
+        <h2 class="text-[11px] font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
+          <i data-lucide="grid" class="w-3.5 h-3.5 text-red-500"></i> Pilih Aplikasi / Feature
+        </h2>
+        <span class="text-[10px] text-red-400 font-mono">8 Links & Apps</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2.5">
+        <div onclick="switchMainTab('namasiswa')" class="nexus-card p-3 rounded-xl flex flex-col justify-between cursor-pointer active:scale-95 transition group relative">
+          <div class="flex items-start justify-between mb-2">
+            <div class="p-2 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400">
+              <i data-lucide="users" class="w-4 h-4"></i>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-3 h-3 text-gray-500"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-white">Daftar Siswa</h3>
+            <p class="text-[9px] text-gray-400 mt-0.5">32 Anggota Kelas</p>
+          </div>
+        </div>
+
+        <div onclick="switchMainTab('jadwalmapel')" class="nexus-card p-3 rounded-xl flex flex-col justify-between cursor-pointer active:scale-95 transition group relative">
+          <div class="flex items-start justify-between mb-2">
+            <div class="p-2 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400">
+              <i data-lucide="book-open" class="w-4 h-4"></i>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-3 h-3 text-gray-500"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-white">Jadwal Mapel</h3>
+            <p class="text-[9px] text-gray-400 mt-0.5">Senin - Jumat</p>
+          </div>
+        </div>
+
+        <div onclick="switchMainTab('jadwalpiket')" class="nexus-card p-3 rounded-xl flex flex-col justify-between cursor-pointer active:scale-95 transition group relative">
+          <div class="flex items-start justify-between mb-2">
+            <div class="p-2 rounded-lg bg-orange-500/10 border border-orange-500/30 text-orange-400">
+              <i data-lucide="broom" class="w-4 h-4"></i>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-3 h-3 text-gray-500"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-white">Jadwal Piket</h3>
+            <p class="text-[9px] text-gray-400 mt-0.5">Piket Kebersihan</p>
+          </div>
+        </div>
+
+        <div onclick="switchMainTab('galeri')" class="nexus-card p-3 rounded-xl flex flex-col justify-between cursor-pointer active:scale-95 transition group relative">
+          <div class="flex items-start justify-between mb-2">
+            <div class="p-2 rounded-lg bg-pink-500/10 border border-pink-500/30 text-pink-400">
+              <i data-lucide="image" class="w-4 h-4"></i>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-3 h-3 text-gray-500"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-white">Galeri Foto</h3>
+            <p class="text-[9px] text-gray-400 mt-0.5">100 Foto Kenangan</p>
+          </div>
+        </div>
+
+        <a href="https://www.tiktok.com/@mipa2.archive?_r=1&_t=ZS-99Hhe1cQnMD" target="_blank" rel="noopener noreferrer" class="nexus-card p-3 rounded-xl flex flex-col justify-between cursor-pointer active:scale-95 transition group relative border-cyan-500/20">
+          <div class="flex items-start justify-between mb-2">
+            <div class="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+              <i data-lucide="video" class="w-4 h-4"></i>
+            </div>
+            <i data-lucide="external-link" class="w-3 h-3 text-gray-500"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-white">TikTok</h3>
+            <p class="text-[9px] text-gray-400 mt-0.5">@mipa2.archive</p>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/ofc.12ipa2_?igsi=eWJrOXFqNXpibnV" target="_blank" rel="noopener noreferrer" class="nexus-card p-3 rounded-xl flex flex-col justify-between cursor-pointer active:scale-95 transition group relative border-pink-500/20">
+          <div class="flex items-start justify-between mb-2">
+            <div class="p-2 rounded-lg bg-pink-500/10 border border-pink-500/30 text-pink-400">
+              <i data-lucide="instagram" class="w-4 h-4"></i>
+            </div>
+            <i data-lucide="external-link" class="w-3 h-3 text-gray-500"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-white">Instagram</h3>
+            <p class="text-[9px] text-gray-400 mt-0.5">@ofc.12ipa2_</p>
+          </div>
+        </a>
+
+        <a href="https://open.spotify.com/playlist/0QvfcK1Dw1NsBMXG7aHtxO?si=qyvYz2MiSCauiw6SEGqWGw" target="_blank" rel="noopener noreferrer" class="nexus-card p-3 rounded-xl flex flex-col justify-between cursor-pointer active:scale-95 transition group relative border-emerald-500/20">
+          <div class="flex items-start justify-between mb-2">
+            <div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+              <i data-lucide="music" class="w-4 h-4"></i>
+            </div>
+            <i data-lucide="external-link" class="w-3 h-3 text-gray-500"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-white">Spotify</h3>
+            <p class="text-[9px] text-gray-400 mt-0.5">Playlist Kelas</p>
+          </div>
+        </a>
+
+        <a href="https://ezraleorenza98-debug.github.io/XII-2-/" target="_blank" rel="noopener noreferrer" class="nexus-card p-3 rounded-xl flex flex-col justify-between cursor-pointer active:scale-95 transition group relative border-purple-500/20">
+          <div class="flex items-start justify-between mb-2">
+            <div class="p-2 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-400">
+              <i data-lucide="globe" class="w-4 h-4"></i>
+            </div>
+            <i data-lucide="external-link" class="w-3 h-3 text-gray-500"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-white">Website Debug</h3>
+            <p class="text-[9px] text-gray-400 mt-0.5">ezraleorenza98</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- VIEW DAFTAR SISWA -->
+    <div id="viewNamaSiswa" class="tab-view hidden space-y-2.5">
+      <div class="flex items-center justify-between pb-1">
+        <button onclick="switchMainTab('all')" class="text-xs text-red-400 font-bold flex items-center gap-1 active:scale-95 transition">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
+        </button>
+        <span class="text-[10px] text-gray-400">Total: 32 Siswa</span>
+      </div>
+      <div id="studentListContainer" class="grid grid-cols-1 gap-2"></div>
+    </div>
+
+    <!-- VIEW JADWAL MAPEL -->
+    <div id="viewJadwalMapel" class="tab-view hidden space-y-3">
+      <div class="flex items-center justify-between pb-1">
+        <button onclick="switchMainTab('all')" class="text-xs text-red-400 font-bold flex items-center gap-1 active:scale-95 transition">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
+        </button>
+        <span class="text-[10px] text-gray-400">XII.2 MIPA • Senin - Jumat</span>
+      </div>
+      <div id="mapelContainer" class="space-y-3"></div>
+    </div>
+
+    <!-- VIEW JADWAL PIKET -->
+    <div id="viewJadwalPiket" class="tab-view hidden space-y-3">
+      <div class="flex items-center justify-between pb-1">
+        <button onclick="switchMainTab('all')" class="text-xs text-red-400 font-bold flex items-center gap-1 active:scale-95 transition">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
+        </button>
+        <span class="text-[10px] text-gray-400">Piket Kebersihan • Harian</span>
+      </div>
+      <div id="piketContainer" class="space-y-3"></div>
+    </div>
+
+    <!-- VIEW GALERI FOTO KENANGAN (LANDSCAPE FORMAT) -->
+    <div id="viewGaleri" class="tab-view hidden space-y-2.5">
+      <div class="flex items-center justify-between pb-1">
+        <button onclick="switchMainTab('all')" class="text-xs text-red-400 font-bold flex items-center gap-1 active:scale-95 transition">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Menu
+        </button>
+        <span class="text-[10px] text-gray-400">Total: 100 Foto (Landscape)</span>
+      </div>
+      <div id="galleryPhotoGrid" class="grid grid-cols-2 gap-2.5"></div>
+    </div>
+
+  </main>
+
+  <!-- MODAL PREVIEW SINGLE FOTO GALERI -->
+  <div id="singleImgModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[60] hidden flex items-center justify-center p-4">
+    <div class="nexus-card rounded-2xl border border-red-500/40 p-3.5 max-w-sm w-full relative space-y-2.5">
+      <button onclick="closeSingleImgModal()" class="absolute top-2.5 right-2.5 p-1 rounded-full bg-black/60 text-white border border-white/20 active:scale-95 transition">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <img id="singleImgSrc" src="" onerror="this.src='https://via.placeholder.com/600x337/180c10/ef4444?text=Gambar+Tidak+Ditemukan'" class="w-full rounded-xl object-cover aspect-video border border-white/10">
+
+      <div>
+        <h3 id="singleImgTitle" class="text-xs font-bold text-white"></h3>
+        <p id="singleImgCap" class="text-[11px] text-red-400 font-medium mt-0.5"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <script>
+    const dayNamesIndo = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const monthNamesIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+    const studentsData = [
+      { nis: '3727', name: 'AIDA FITRIA', gender: 'P' },
+      { nis: '3767', name: 'DEZZIYAN ADHIBAH', gender: 'P' },
+      { nis: '3631', name: 'DINDA KARISAH PUTRI', gender: 'P' },
+      { nis: '3768', name: 'DWI MIRKHATUN', gender: 'P' },
+      { nis: '3869', name: 'EZRA LEORENZA GEMA ADZANSYAH', gender: 'L' },
+      { nis: '3631', name: 'FAKHRY ALFANZAH', gender: 'L' },
+      { nis: '3737', name: 'FANY AULIA SALWA', gender: 'P' },
+      { nis: '3806', name: 'FEBRIAN DWI ANINDHITA', gender: 'L' },
+      { nis: '3771', name: 'FIELDAN ADYA PRATAMA', gender: 'L' },
+      { nis: '3841', name: 'FIFI FEBRIANJANI', gender: 'P' },
+      { nis: '3842', name: 'FIQKYE FADILLAH', gender: 'P' },
+      { nis: '3739', name: 'GADIS RAMADHANI', gender: 'P' },
+      { nis: '3772', name: 'GYO BANGGA APRILIKA SENJA', gender: 'L' },
+      { nis: '3705', name: 'HILDAN AHMAD', gender: 'L' },
+      { nis: '3672', name: 'IKA ISMATUL MAULA', gender: 'P' },
+      { nis: '3707', name: 'KARIN DWI AZIZAH', gender: 'P' },
+      { nis: '3674', name: 'LASWARDI ADI SUSENO', gender: 'L' },
+      { nis: '3709', name: 'LINTANG AYU RAMADHANI', gender: 'P' },
+      { nis: '3710', name: 'MIFTAHUL KHUSNA', gender: 'P' },
+      { nis: '3870', name: 'MUHAMAD NUZUL ZAIDAN', gender: 'L' },
+      { nis: '3642', name: 'NISRINA \'AFIFAH MAYCHA FAIRUZ', gender: 'P' },
+      { nis: '3717', name: 'RAFIQ FADHEL HAFRICK', gender: 'L' },
+      { nis: '3719', name: 'RIZKI BUDI PRATOMO', gender: 'L' },
+      { nis: '3789', name: 'RYUZI MAHESWARA', gender: 'L' },
+      { nis: '3868', name: 'SALSA PUTRI SYAHRANI', gender: 'P' },
+      { nis: '3685', name: 'SELIA NAISILA PUTRI', gender: 'P' },
+      { nis: '3720', name: 'SELVIA JAYANTI', gender: 'P' },
+      { nis: '3650', name: 'SRI RAHMADANI', gender: 'P' },
+      { nis: '3792', name: 'TESA MAWAR KETI', gender: 'P' },
+      { nis: '3863', name: 'WITDIYAH', gender: 'P' },
+      { nis: '3655', name: 'YENI RAHMAWATI', gender: 'P' },
+      { nis: '3794', name: 'ZAHRA AMELIA RAHMAN', gender: 'P' }
+    ];
+
+    const students = studentsData.map((s, i) => {
+      const id = i + 1;
+      const formattedId = id < 10 ? '0' + id : id;
+      return {
+        id: id,
+        formattedId: formattedId,
+        nis: s.nis,
+        studentName: s.name,
+        gender: s.gender
+      };
+    });
+
+    const galleryPhotos = [
+      { id: 1, formattedId: '01', title: 'Foto Kenangan #01', image: 'foto/foto1.jpg' },
+      { id: 2, formattedId: '02', title: 'Foto Kenangan #02', image: 'foto/foto2.jpg' },
+      { id: 3, formattedId: '03', title: 'Foto Kenangan #03', image: 'foto/foto3.jpg' },
+      { id: 4, formattedId: '04', title: 'Foto Kenangan #04', image: 'foto/foto4.jpg' },
+      { id: 5, formattedId: '05', title: 'Foto Kenangan #05', image: 'foto/foto5.jpg' },
+      { id: 6, formattedId: '06', title: 'Foto Kenangan #06', image: 'foto/foto6.jpg' },
+      { id: 7, formattedId: '07', title: 'Foto Kenangan #07', image: 'foto/foto7.jpg' },
+      { id: 8, formattedId: '08', title: 'Foto Kenangan #08', image: 'foto/foto8.jpg' },
+      { id: 9, formattedId: '09', title: 'Foto Kenangan #09', image: 'foto/foto9.jpg' },
+      { id: 10, formattedId: '10', title: 'Foto Kenangan #10', image: 'foto/foto10.jpg' },
+      { id: 11, formattedId: '11', title: 'Foto Kenangan #11', image: 'foto/foto11.jpg' },
+      { id: 12, formattedId: '12', title: 'Foto Kenangan #12', image: 'foto/foto12.jpg' },
+      { id: 13, formattedId: '13', title: 'Foto Kenangan #13', image: 'foto/foto13.jpg' },
+      { id: 14, formattedId: '14', title: 'Foto Kenangan #14', image: 'foto/foto14.jpg' },
+      { id: 15, formattedId: '15', title: 'Foto Kenangan #15', image: 'foto/foto15.jpg' },
+      { id: 16, formattedId: '16', title: 'Foto Kenangan #16', image: 'foto/foto16.jpg' },
+      { id: 17, formattedId: '17', title: 'Foto Kenangan #17', image: 'foto/foto17.jpg' },
+      { id: 18, formattedId: '18', title: 'Foto Kenangan #18', image: 'foto/foto18.jpg' },
+      { id: 19, formattedId: '19', title: 'Foto Kenangan #19', image: 'foto/foto19.jpg' },
+      { id: 20, formattedId: '20', title: 'Foto Kenangan #20', image: 'foto/foto20.jpg' },
+      { id: 21, formattedId: '21', title: 'Foto Kenangan #21', image: 'foto/foto21.jpg' },
+      { id: 22, formattedId: '22', title: 'Foto Kenangan #22', image: 'foto/foto22.jpg' },
+      { id: 23, formattedId: '23', title: 'Foto Kenangan #23', image: 'foto/foto23.jpg' },
+      { id: 24, formattedId: '24', title: 'Foto Kenangan #24', image: 'foto/foto24.jpg' },
+      { id: 25, formattedId: '25', title: 'Foto Kenangan #25', image: 'foto/foto25.jpg' },
+      { id: 26, formattedId: '26', title: 'Foto Kenangan #26', image: 'foto/foto26.jpg' },
+      { id: 27, formattedId: '27', title: 'Foto Kenangan #27', image: 'foto/foto27.jpg' },
+      { id: 28, formattedId: '28', title: 'Foto Kenangan #28', image: 'foto/foto28.jpg' },
+      { id: 29, formattedId: '29', title: 'Foto Kenangan #29', image: 'foto/foto29.jpg' },
+      { id: 30, formattedId: '30', title: 'Foto Kenangan #30', image: 'foto/foto30.jpg' },
+      { id: 31, formattedId: '31', title: 'Foto Kenangan #31', image: 'foto/foto31.jpg' },
+      { id: 32, formattedId: '32', title: 'Foto Kenangan #32', image: 'foto/foto32.jpg' },
+      { id: 33, formattedId: '33', title: 'Foto Kenangan #33', image: 'foto/foto33.jpg' },
+      { id: 34, formattedId: '34', title: 'Foto Kenangan #34', image: 'foto/foto34.jpg' },
+      { id: 35, formattedId: '35', title: 'Foto Kenangan #35', image: 'foto/foto35.jpg' },
+      { id: 36, formattedId: '36', title: 'Foto Kenangan #36', image: 'foto/foto36.jpg' },
+      { id: 37, formattedId: '37', title: 'Foto Kenangan #37', image: 'foto/foto37.jpg' },
+      { id: 38, formattedId: '38', title: 'Foto Kenangan #38', image: 'foto/foto38.jpg' },
+      { id: 39, formattedId: '39', title: 'Foto Kenangan #39', image: 'foto/foto39.jpg' },
+      { id: 40, formattedId: '40', title: 'Foto Kenangan #40', image: 'foto/foto40.jpg' },
+      { id: 41, formattedId: '41', title: 'Foto Kenangan #41', image: 'foto/foto41.jpg' },
+      { id: 42, formattedId: '42', title: 'Foto Kenangan #42', image: 'foto/foto42.jpg' },
+      { id: 43, formattedId: '43', title: 'Foto Kenangan #43', image: 'foto/foto43.jpg' },
+      { id: 44, formattedId: '44', title: 'Foto Kenangan #44', image: 'foto/foto44.jpg' },
+      { id: 45, formattedId: '45', title: 'Foto Kenangan #45', image: 'foto/foto45.jpg' },
+      { id: 46, formattedId: '46', title: 'Foto Kenangan #46', image: 'foto/foto46.jpg' },
+      { id: 47, formattedId: '47', title: 'Foto Kenangan #47', image: 'foto/foto47.jpg' },
+      { id: 48, formattedId: '48', title: 'Foto Kenangan #48', image: 'foto/foto48.jpg' },
+      { id: 49, formattedId: '49', title: 'Foto Kenangan #49', image: 'foto/foto49.jpg' },
+      { id: 50, formattedId: '50', title: 'Foto Kenangan #50', image: 'foto/foto50.jpg' },
+      { id: 51, formattedId: '51', title: 'Foto Kenangan #51', image: 'foto/foto51.jpg' },
+      { id: 52, formattedId: '52', title: 'Foto Kenangan #52', image: 'foto/foto52.jpg' },
+      { id: 53, formattedId: '53', title: 'Foto Kenangan #53', image: 'foto/foto53.jpg' },
+      { id: 54, formattedId: '54', title: 'Foto Kenangan #54', image: 'foto/foto54.jpg' },
+      { id: 55, formattedId: '55', title: 'Foto Kenangan #55', image: 'foto/foto55.jpg' },
+      { id: 56, formattedId: '56', title: 'Foto Kenangan #56', image: 'foto/foto56.jpg' },
+      { id: 57, formattedId: '57', title: 'Foto Kenangan #57', image: 'foto/foto57.jpg' },
+      { id: 58, formattedId: '58', title: 'Foto Kenangan #58', image: 'foto/foto58.jpg' },
+      { id: 59, formattedId: '59', title: 'Foto Kenangan #59', image: 'foto/foto59.jpg' },
+      { id: 60, formattedId: '60', title: 'Foto Kenangan #60', image: 'foto/foto60.jpg' },
+      { id: 61, formattedId: '61', title: 'Foto Kenangan #61', image: 'foto/foto61.jpg' },
+      { id: 62, formattedId: '62', title: 'Foto Kenangan #62', image: 'foto/foto62.jpg' },
+      { id: 63, formattedId: '63', title: 'Foto Kenangan #63', image: 'foto/foto63.jpg' },
+      { id: 64, formattedId: '64', title: 'Foto Kenangan #64', image: 'foto/foto64.jpg' },
+      { id: 65, formattedId: '65', title: 'Foto Kenangan #65', image: 'foto/foto65.jpg' },
+      { id: 66, formattedId: '66', title: 'Foto Kenangan #66', image: 'foto/foto66.jpg' },
+      { id: 67, formattedId: '67', title: 'Foto Kenangan #67', image: 'foto/foto67.jpg' },
+      { id: 68, formattedId: '68', title: 'Foto Kenangan #68', image: 'foto/foto68.jpg' },
+      { id: 69, formattedId: '69', title: 'Foto Kenangan #69', image: 'foto/foto69.jpg' },
+      { id: 70, formattedId: '70', title: 'Foto Kenangan #70', image: 'foto/foto70.jpg' },
+      { id: 71, formattedId: '71', title: 'Foto Kenangan #71', image: 'foto/foto71.jpg' },
+      { id: 72, formattedId: '72', title: 'Foto Kenangan #72', image: 'foto/foto72.jpg' },
+      { id: 73, formattedId: '73', title: 'Foto Kenangan #73', image: 'foto/foto73.jpg' },
+      { id: 74, formattedId: '74', title: 'Foto Kenangan #74', image: 'foto/foto74.jpg' },
+      { id: 75, formattedId: '75', title: 'Foto Kenangan #75', image: 'foto/foto75.jpg' },
+      { id: 76, formattedId: '76', title: 'Foto Kenangan #76', image: 'foto/foto76.jpg' },
+      { id: 77, formattedId: '77', title: 'Foto Kenangan #77', image: 'foto/foto77.jpg' },
+      { id: 78, formattedId: '78', title: 'Foto Kenangan #78', image: 'foto/foto78.jpg' },
+      { id: 79, formattedId: '79', title: 'Foto Kenangan #79', image: 'foto/foto79.jpg' },
+      { id: 80, formattedId: '80', title: 'Foto Kenangan #80', image: 'foto/foto80.jpg' },
+      { id: 81, formattedId: '81', title: 'Foto Kenangan #81', image: 'foto/foto81.jpg' },
+      { id: 82, formattedId: '82', title: 'Foto Kenangan #82', image: 'foto/foto82.jpg' },
+      { id: 83, formattedId: '83', title: 'Foto Kenangan #83', image: 'foto/foto83.jpg' },
+      { id: 84, formattedId: '84', title: 'Foto Kenangan #84', image: 'foto/foto84.jpg' },
+      { id: 85, formattedId: '85', title: 'Foto Kenangan #85', image: 'foto/foto85.jpg' },
+      { id: 86, formattedId: '86', title: 'Foto Kenangan #86', image: 'foto/foto86.jpg' },
+      { id: 87, formattedId: '87', title: 'Foto Kenangan #87', image: 'foto/foto87.jpg' },
+      { id: 88, formattedId: '88', title: 'Foto Kenangan #88', image: 'foto/foto88.jpg' },
+      { id: 89, formattedId: '89', title: 'Foto Kenangan #89', image: 'foto/foto89.jpg' },
+      { id: 90, formattedId: '90', title: 'Foto Kenangan #90', image: 'foto/foto90.jpg' },
+      { id: 91, formattedId: '91', title: 'Foto Kenangan #91', image: 'foto/foto91.jpg' },
+      { id: 92, formattedId: '92', title: 'Foto Kenangan #92', image: 'foto/foto92.jpg' },
+      { id: 93, formattedId: '93', title: 'Foto Kenangan #93', image: 'foto/foto93.jpg' },
+      { id: 94, formattedId: '94', title: 'Foto Kenangan #94', image: 'foto/foto94.jpg' },
+      { id: 95, formattedId: '95', title: 'Foto Kenangan #95', image: 'foto/foto95.jpg' },
+      { id: 96, formattedId: '96', title: 'Foto Kenangan #96', image: 'foto/foto96.jpg' },
+      { id: 97, formattedId: '97', title: 'Foto Kenangan #97', image: 'foto/foto97.jpg' },
+      { id: 98, formattedId: '98', title: 'Foto Kenangan #98', image: 'foto/foto98.jpg' },
+      { id: 99, formattedId: '99', title: 'Foto Kenangan #99', image: 'foto/foto99.jpg' },
+      { id: 100, formattedId: '100', title: 'Foto Kenangan #100', image: 'foto/foto100.jpg' }
+    ];
+
+    const scheduleMapel = [
+      { hari: 'Senin', mapel: [
+        { name: 'Biologi', duration: '3 Jam' },
+        { name: 'Fisika', duration: '2 Jam' },
+        { name: 'PKWU', duration: '2 Jam' },
+        { name: 'Seni Budaya', duration: '2 Jam' }
+      ]},
+      { hari: 'Selasa', mapel: [
+        { name: 'Bahasa Inggris', duration: '2 Jam' },
+        { name: 'PJOK', duration: '2 Jam' },
+        { name: 'MTK TL', duration: '2 Jam' },
+        { name: 'Biologi', duration: '2 Jam' },
+        { name: 'PAIBP', duration: '2 Jam' }
+      ]},
+      { hari: 'Rabu', mapel: [
+        { name: 'MTK TL', duration: '3 Jam' },
+        { name: 'MTK', duration: '1 Jam' },
+        { name: 'Kimia', duration: '2 Jam' },
+        { name: 'Sejarah', duration: '2 Jam' },
+        { name: 'PKN', duration: '2 Jam' }
+      ]},
+      { hari: 'Kamis', mapel: [
+        { name: 'Matematika', duration: '2 Jam' },
+        { name: 'BK', duration: '1 Jam' },
+        { name: 'Fisika', duration: '3 Jam' },
+        { name: 'Kimia', duration: '1 Jam' },
+        { name: 'P5', duration: '3 Jam' }
+      ]},
+      { hari: 'Jumat', mapel: [
+        { name: 'Kimia', duration: '2 Jam' },
+        { name: 'Bahasa Inggris', duration: '1 Jam' },
+        { name: 'Bahasa Indonesia', duration: '3 Jam' },
+        { name: 'Bahasa Jawa', duration: '2 Jam' }
+      ]}
+    ];
+
+    const schedulePiket = [
+      { hari: 'Senin', anggota: ['Fakhry', 'Laswardi', 'Aida', 'Dwi. M', 'Fifi', 'Ika', 'Selvia'] },
+      { hari: 'Selasa', anggota: ['Fildan', 'Nuzul', 'Dezziyan', 'Fani', 'Zahra', 'Selia'] },
+      { hari: 'Rabu', anggota: ['Gyo', 'Budi', 'Nisrina', 'Sri. R', 'Wildiyah', 'Yeni', 'Karin'] },
+      { hari: 'Kamis', anggota: ['Ezra (WEB DEVELOPER)😎', 'Rafiq', 'Fiqye', 'Dinda', 'Lintang', 'Tesa'] },
+      { hari: 'Jumat', anggota: ['Hildan', 'Ryuzi', 'Febrian', 'Gadis', 'Miftahul. H', 'Salsa'] }
+    ];
+
+    function detectDeviceOS() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const deviceEl = document.getElementById('deviceDetect');
+      
+      if (/android/i.test(userAgent)) {
+        deviceEl.innerText = "Android Device";
+      } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        deviceEl.innerText = "iPhone (iOS)";
+      } else {
+        deviceEl.innerText = "Android / iPhone";
+      }
+    }
+
+    function updateLiveClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      
+      const dayName = dayNamesIndo[now.getDay()];
+      const dayNum = now.getDate();
+      const monthName = monthNamesIndo[now.getMonth()];
+      const year = now.getFullYear();
+
+      document.getElementById('liveClock').innerText = `${hours}:${minutes}:${seconds}`;
+      document.getElementById('liveDate').innerText = `${dayName}, ${dayNum} ${monthName} ${year}`;
+      document.getElementById('liveTodayStatus').innerText = `Jadwal Otomatis: ${dayName}`;
+    }
+
+    function openSingleImg(src, title, cap) {
+      document.getElementById('singleImgSrc').src = src;
+      document.getElementById('singleImgTitle').innerText = title;
+      document.getElementById('singleImgCap').innerText = cap;
+      document.getElementById('singleImgModal').classList.remove('hidden');
+    }
+
+    function closeSingleImgModal() {
+      document.getElementById('singleImgModal').classList.add('hidden');
+    }
+
+    function switchMainTab(targetTab) {
+      document.getElementById('viewHomeGrid').classList.add('hidden');
+      document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
+
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => {
+        btn.className = "filter-btn px-3.5 py-1.5 rounded-full nexus-card text-gray-400 hover:text-white font-medium text-[11px] flex items-center space-x-1.5 whitespace-nowrap transition";
+      });
+
+      if (targetTab === 'all') {
+        document.getElementById('viewHomeGrid').classList.remove('hidden');
+        document.getElementById('filterAll').className = "filter-btn px-3.5 py-1.5 rounded-full bg-red-600 text-white font-bold text-[11px] flex items-center space-x-1.5 whitespace-nowrap shadow-md shadow-red-600/30 transition";
+      } else if (targetTab === 'namasiswa') {
+        document.getElementById('viewNamaSiswa').classList.remove('hidden');
+        document.getElementById('filterSiswa').className = "filter-btn px-3.5 py-1.5 rounded-full bg-red-600 text-white font-bold text-[11px] flex items-center space-x-1.5 whitespace-nowrap shadow-md shadow-red-600/30 transition";
+      } else if (targetTab === 'jadwalmapel') {
+        document.getElementById('viewJadwalMapel').classList.remove('hidden');
+        document.getElementById('filterMapel').className = "filter-btn px-3.5 py-1.5 rounded-full bg-red-600 text-white font-bold text-[11px] flex items-center space-x-1.5 whitespace-nowrap shadow-md shadow-red-600/30 transition";
+      } else if (targetTab === 'jadwalpiket') {
+        document.getElementById('viewJadwalPiket').classList.remove('hidden');
+        document.getElementById('filterPiket').className = "filter-btn px-3.5 py-1.5 rounded-full bg-red-600 text-white font-bold text-[11px] flex items-center space-x-1.5 whitespace-nowrap shadow-md shadow-red-600/30 transition";
+      } else if (targetTab === 'galeri') {
+        document.getElementById('viewGaleri').classList.remove('hidden');
+        document.getElementById('filterGaleri').className = "filter-btn px-3.5 py-1.5 rounded-full bg-red-600 text-white font-bold text-[11px] flex items-center space-x-1.5 whitespace-nowrap shadow-md shadow-red-600/30 transition";
+      }
+    }
+
+    function createMapelCardHtml(item, currentDayName) {
+      const isToday = item.hari.toLowerCase() === currentDayName.toLowerCase();
+      return `
+        <div class="w-full nexus-card rounded-xl p-3 border ${isToday ? 'border-red-500 ring-1 ring-red-500/30 bg-red-950/20' : 'border-white/10'} transition relative">
+          ${isToday ? `<span class="absolute -top-2 right-2.5 bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-wider">HARI INI</span>` : ''}
+          <div class="flex items-center space-x-2 border-b border-white/10 pb-2 mb-2">
+            <i data-lucide="calendar" class="w-3.5 h-3.5 ${isToday ? 'text-red-400' : 'text-gray-400'}"></i>
+            <h3 class="text-xs font-extrabold ${isToday ? 'text-red-300' : 'text-white'}">${item.hari}</h3>
+          </div>
+          <div class="grid grid-cols-1 gap-1.5">
+            ${item.mapel.map(m => `
+              <div class="flex items-center justify-between text-xs text-gray-200 bg-black/40 p-2 rounded-lg border border-white/5">
+                <span class="font-semibold text-[11px]">${m.name}</span>
+                <span class="text-[8px] font-bold text-red-400 bg-red-950/80 border border-red-500/30 px-1.5 py-0.5 rounded">${m.duration}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function createPiketCardHtml(item, currentDayName) {
+      const isToday = item.hari.toLowerCase() === currentDayName.toLowerCase();
+      return `
+        <div class="w-full nexus-card rounded-xl p-3 border ${isToday ? 'border-red-500 ring-1 ring-red-500/30 bg-red-950/20' : 'border-white/10'} transition relative">
+          ${isToday ? `<span class="absolute -top-2 right-2.5 bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-wider">HARI INI</span>` : ''}
+          <div class="flex items-center space-x-2 border-b border-white/10 pb-2 mb-2">
+            <i data-lucide="broom" class="w-3.5 h-3.5 ${isToday ? 'text-red-400' : 'text-gray-400'}"></i>
+            <h3 class="text-xs font-extrabold ${isToday ? 'text-red-300' : 'text-white'}">${item.hari}</h3>
+          </div>
+          <div class="grid grid-cols-2 gap-1.5">
+            ${item.anggota.map(nama => `
+              <div class="p-2 rounded-lg bg-black/40 border border-white/5 text-center">
+                <p class="text-[10px] font-semibold text-gray-200 truncate">${nama}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAllContent() {
+      const now = new Date();
+      const currentDayName = dayNamesIndo[now.getDay()];
+
+      // RENDER GALERI LANDSCAPE
+      document.getElementById('galleryPhotoGrid').innerHTML = galleryPhotos.map(p => `
+        <div onclick="openSingleImg('${p.image}', '${p.title}', 'Foto Kenangan XII.2 MIPA')" class="nexus-card p-1.5 rounded-xl border border-white/10 active:scale-95 cursor-pointer group transition">
+          <div class="aspect-video w-full rounded-lg overflow-hidden bg-slate-900 relative">
+            <img src="${p.image}" onerror="this.src='https://via.placeholder.com/300x169/180c10/ef4444?text=foto${p.id}.jpg'" class="w-full h-full object-cover" loading="lazy">
+            <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-black/70 text-red-400 text-[8px] font-bold border border-white/10">#${p.formattedId}</span>
+          </div>
+        </div>
+      `).join('');
+
+      // RENDER DAFTAR SISWA (TANPA FOTO/KLIK)
+      document.getElementById('studentListContainer').innerHTML = students.map(s => `
+        <div class="nexus-card p-2.5 rounded-xl border border-white/10 flex items-center justify-between transition">
+          <div class="flex items-center space-x-2.5 overflow-hidden">
+            <div class="w-8 h-8 rounded-lg bg-red-950/60 border border-red-500/30 text-red-400 font-extrabold text-[11px] flex items-center justify-center shrink-0">
+              ${s.formattedId}
+            </div>
+            <div class="overflow-hidden">
+              <h4 class="text-[11px] font-bold text-white truncate">${s.studentName}</h4>
+              <p class="text-[9px] text-gray-400 truncate">NIS: ${s.nis}</p>
+            </div>
+          </div>
+          <span class="text-[9px] font-bold px-2 py-0.5 rounded border ${s.gender === 'L' ? 'bg-blue-950/60 text-blue-400 border-blue-500/30' : 'bg-pink-950/60 text-pink-400 border-pink-500/30'}">
+            ${s.gender === 'L' ? 'Laki-Laki' : 'Perempuan'}
+          </span>
+        </div>
+      `).join('');
+
+      document.getElementById('mapelContainer').innerHTML = scheduleMapel.map(item => createMapelCardHtml(item, currentDayName)).join('');
+
+      document.getElementById('piketContainer').innerHTML = schedulePiket.map(item => createPiketCardHtml(item, currentDayName)).join('');
+
+      lucide.createIcons();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderAllContent();
+      detectDeviceOS();
+      updateLiveClock();
+      setInterval(updateLiveClock, 1000);
+
+      setTimeout(() => {
+        const loader = document.getElementById('loadingScreen');
+        const content = document.getElementById('mainContent');
+        
+        loader.classList.add('opacity-0');
+        setTimeout(() => {
+          loader.style.display = 'none';
+          content.classList.remove('opacity-0');
+          AOS.init({ duration: 500, once: true });
+        }, 500);
+      }, 2500);
+    });
+  </script>
+</body>
+</html>
