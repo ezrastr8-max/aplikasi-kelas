@@ -95,20 +95,21 @@
         </div>
       </div>
 
-      <!-- BAGIAN VIDEO YANG DIOPTIMASI -->
+      <!-- BAGIAN VIDEO YANG DIOPTIMASI TANPA FOTO POSTER -->
       <div class="relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 bg-slate-900 mb-2 border-b">
         <video 
+          id="heroVideo"
           autoplay 
           loop 
           muted 
           playsinline 
           webkit-playsinline
-          preload="metadata"
-          poster="foto/foto1.jpg"
+          preload="auto"
           class="w-full h-full object-cover">
           <source src="video1.mp4" type="video/mp4">
+          Browser Anda tidak mendukung tag video.
         </video>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#180c10] via-transparent to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#180c10] via-transparent to-transparent pointer-events-none"></div>
       </div>
 
       <div class="flex flex-col pt-1">
@@ -642,6 +643,14 @@
       detectDeviceOS();
       updateLiveClock();
       setInterval(updateLiveClock, 1000);
+
+      // Memaksa video agar langsung terputar di browser HP
+      const heroVid = document.getElementById('heroVideo');
+      if (heroVid) {
+        heroVid.play().catch(err => {
+          console.log("Autoplay ditahan oleh sistem browser:", err);
+        });
+      }
 
       setTimeout(() => {
         const loader = document.getElementById('loadingScreen');
