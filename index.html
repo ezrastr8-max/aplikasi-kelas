@@ -418,7 +418,6 @@
       };
     });
 
-    // Otomatis membuat array 100 foto
     const galleryPhotos = Array.from({ length: 100 }, (_, i) => {
       const id = i + 1;
       const formattedId = id < 10 ? '0' + id : `${id}`;
@@ -586,7 +585,6 @@
       const now = new Date();
       const currentDayName = dayNamesIndo[now.getDay()];
 
-      // RENDER GALERI LANDSCAPE
       document.getElementById('galleryPhotoGrid').innerHTML = galleryPhotos.map(p => `
         <div onclick="openSingleImg('${p.image}', '${p.title}', 'Foto Kenangan XII.2 MIPA')" class="nexus-card p-1.5 rounded-xl border border-white/10 active:scale-95 cursor-pointer group transition">
           <div class="aspect-video w-full rounded-lg overflow-hidden bg-slate-900 relative">
@@ -596,7 +594,6 @@
         </div>
       `).join('');
 
-      // RENDER DAFTAR SISWA
       document.getElementById('studentListContainer').innerHTML = students.map(s => `
         <div class="nexus-card p-2.5 rounded-xl border border-white/10 flex items-center justify-between transition">
           <div class="flex items-center space-x-2.5 overflow-hidden">
