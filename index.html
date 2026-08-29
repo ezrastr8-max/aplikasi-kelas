@@ -185,8 +185,8 @@
         <span>Jadwal Mapel</span>
       </button>
 
-      <button id="filterPiket" onclick="switchMainTab('jadwalpiket')" class="filter-btn px-3.5 py-1.5 rounded-full nexus-card text-gray-400 hover:text-white font-medium text-xs flex items-center space-x-1.5 whitespace-nowrap transition">
-        <i data-lucide="broom" class="w-3.5 h-3.5"></i>
+      <button id="filterPiket" onclick="switchMainTab('jadwalpiket')" class="filter-btn px-3.5 py-1.5 rounded-full nexus-card text-gray-400 hover:text-white font-medium text-[11px] flex items-center space-x-1.5 whitespace-nowrap transition">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
         <span>Jadwal Piket</span>
       </button>
 
@@ -235,7 +235,7 @@
         <div onclick="switchMainTab('jadwalpiket')" class="nexus-card p-3 rounded-xl flex flex-col justify-between cursor-pointer active:scale-95 transition group relative">
           <div class="flex items-start justify-between mb-2">
             <div class="p-2 rounded-lg bg-orange-500/10 border border-orange-500/30 text-orange-400">
-              <i data-lucide="broom" class="w-4 h-4"></i>
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
             </div>
             <i data-lucide="arrow-up-right" class="w-3 h-3 text-gray-500"></i>
           </div>
@@ -365,7 +365,7 @@
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
-      <img id="singleImgSrc" src="" onerror="this.src='https://via.placeholder.com/600x337/180c10/ef4444?text=Gambar+Tidak+Ditemukan'" class="w-full rounded-xl object-cover aspect-video border border-white/10">
+      <img id="singleImgSrc" src="" onerror="this.src='https://via.placeholder.com/600x337/180c10/ef4444?text=Gambar+Tidak+Ditemukan'" class="w-full rounded-xl object-cover aspect-video border border-white/10" alt="Preview Foto">
 
       <div>
         <h3 id="singleImgTitle" class="text-xs font-bold text-white"></h3>
@@ -380,13 +380,14 @@
     const dayNamesIndo = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
     const monthNamesIndo = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
+    // Perbaikan daftar NIS & Siswa
     const studentsData = [
       { nis: '3727', name: 'AIDA FITRIA', gender: 'P' },
       { nis: '3767', name: 'DEZZIYAN ADHIBAH', gender: 'P' },
       { nis: '3631', name: 'DINDA KARISAH PUTRI', gender: 'P' },
       { nis: '3768', name: 'DWI MIRKHATUN', gender: 'P' },
       { nis: '3869', name: 'EZRA LEORENZA GEMA ADZANSYAH', gender: 'L' },
-      { nis: '3631', name: 'FAKHRY ALFANZAH', gender: 'L' },
+      { nis: '3632', name: 'FAKHRY ALFANZAH', gender: 'L' },
       { nis: '3737', name: 'FANY AULIA SALWA', gender: 'P' },
       { nis: '3806', name: 'FEBRIAN DWI ANINDHITA', gender: 'L' },
       { nis: '3771', name: 'FIELDAN ADYA PRATAMA', gender: 'L' },
@@ -547,6 +548,13 @@
         document.getElementById('viewGaleri').classList.remove('hidden');
         document.getElementById('filterGaleri').className = "filter-btn px-3.5 py-1.5 rounded-full bg-red-600 text-white font-bold text-[11px] flex items-center space-x-1.5 whitespace-nowrap shadow-md shadow-red-600/30 transition";
       }
+
+      // Re-render Lucide icons saat ganti tab
+      setTimeout(() => {
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      }, 50);
     }
 
     function createMapelCardHtml(item, currentDayName) {
@@ -576,7 +584,7 @@
         <div class="w-full nexus-card rounded-xl p-3 border ${isToday ? 'border-red-500 ring-1 ring-red-500/30 bg-red-950/20' : 'border-white/10'} transition relative">
           ${isToday ? `<span class="absolute -top-2 right-2.5 bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-wider">HARI INI</span>` : ''}
           <div class="flex items-center space-x-2 border-b border-white/10 pb-2 mb-2">
-            <i data-lucide="broom" class="w-3.5 h-3.5 ${isToday ? 'text-red-400' : 'text-gray-400'}"></i>
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 ${isToday ? 'text-red-400' : 'text-gray-400'}"></i>
             <h3 class="text-xs font-extrabold ${isToday ? 'text-red-300' : 'text-white'}">${item.hari}</h3>
           </div>
           <div class="grid grid-cols-2 gap-1.5">
@@ -597,7 +605,7 @@
       document.getElementById('galleryPhotoGrid').innerHTML = galleryPhotos.map(p => `
         <div onclick="openSingleImg('${p.image}', '${p.title}', 'Foto Kenangan XII.2 MIPA')" class="nexus-card p-1.5 rounded-xl border border-white/10 active:scale-95 cursor-pointer group transition">
           <div class="aspect-video w-full rounded-lg overflow-hidden bg-slate-900 relative">
-            <img src="${p.image}" onerror="this.src='https://via.placeholder.com/300x169/180c10/ef4444?text=foto${p.id}.jpg'" class="w-full h-full object-cover" loading="lazy">
+            <img src="${p.image}" onerror="this.src='https://via.placeholder.com/300x169/180c10/ef4444?text=foto${p.id}.jpg'" class="w-full h-full object-cover" loading="lazy" alt="${p.title}">
             <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-black/70 text-red-400 text-[8px] font-bold border border-white/10">#${p.formattedId}</span>
           </div>
         </div>
@@ -624,7 +632,9 @@
 
       document.getElementById('piketContainer').innerHTML = schedulePiket.map(item => createPiketCardHtml(item, currentDayName)).join('');
 
-      lucide.createIcons();
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -641,9 +651,11 @@
         setTimeout(() => {
           loader.style.display = 'none';
           content.classList.remove('opacity-0');
-          AOS.init({ duration: 500, once: true });
+          if (typeof AOS !== 'undefined') {
+            AOS.init({ duration: 500, once: true });
+          }
         }, 500);
-      }, 2500);
+      }, 1500);
     });
   </script>
 </body>
