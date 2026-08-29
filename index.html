@@ -94,9 +94,10 @@
       </div>
 
       <div class="relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 bg-slate-900 mb-2 border-b">
-        <video autoplay loop muted playsinline class="w-full h-full object-cover">
-          <source src="video1.mp4" type="video/mp4">
+        <video autoplay loop muted playsinline preload="auto" style="width: 100%; object-fit: cover; pointer-events: none;">
+  <source src="video1.mp4" type="video/mp4">
         </video>
+        
         <div class="absolute inset-0 bg-gradient-to-t from-[#180c10] via-transparent to-transparent"></div>
       </div>
 
