@@ -67,6 +67,22 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    /* Running text / marquee */
+    .marquee-container {
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
+    }
+    .marquee-content {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 22s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-100%, 0); }
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between relative pb-10">
@@ -84,7 +100,7 @@
 
   <div class="glow-bg"></div>
 
-  <!-- CONTAINER UTAMA FULL WIDTH RESPONSIVE -->
+  <!-- CONTAINER UTAMA -->
   <main id="mainContent" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 space-y-4 opacity-0 transition-opacity duration-700">
 
     <!-- HERO PROFILE BANNER WIDGET -->
@@ -96,7 +112,7 @@
         </div>
       </div>
 
-      <!-- VIDEO BANNER RESPONGSIF -->
+      <!-- VIDEO BANNER -->
       <div class="relative w-full aspect-video md:aspect-[21/9] rounded-xl overflow-hidden border border-white/10 bg-slate-900 mb-3 border-b">
         <video 
           id="heroVideo"
@@ -114,11 +130,16 @@
       </div>
 
       <div class="flex flex-col pt-1">
-        <div class="flex items-center space-x-2 mb-0.5">
+        <div class="flex items-center space-x-2 mb-1">
           <i data-lucide="code-2" class="w-5 h-5 text-red-500"></i>
           <h1 class="text-xl font-extrabold text-white tracking-wide">Ezra Developer</h1>
         </div>
-        <p class="text-xs text-gray-400">Aplikasi Hub Kenangan & Informasi Kelas XII.2 MIPA</p>
+        <!-- RUNNING TEXT DENGAN PESAN PERPISAHAN -->
+        <div class="marquee-container text-xs text-red-400 font-medium">
+          <div class="marquee-content">
+            Selamat Datang di Garis Akhir XII MIPA 2. Tempat kita berhenti sejenak untuk menengok ke belakang, mensyukuri setiap lelah, dan merayakan indahnya kebersamaan sebelum berpisah.
+          </div>
+        </div>
       </div>
     </div>
 
@@ -142,20 +163,57 @@
       </div>
     </div>
 
-    <!-- WIDGET JAM & TANGGAL -->
-    <div data-aos="fade-up" class="nexus-card p-4 rounded-xl flex items-center justify-between border border-red-500/30 bg-red-950/20 shadow-md">
-      <div class="flex items-center space-x-3">
-        <div class="p-2.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400">
-          <i data-lucide="clock" class="w-5 h-5"></i>
+    <!-- WIDGET JAM & TANGGAL DENGAN DROPDOWN JADWAL OTOMATIS -->
+    <div data-aos="fade-up" class="nexus-card rounded-xl border border-red-500/30 bg-red-950/20 shadow-md overflow-hidden transition-all duration-300">
+      <!-- HEADER WIDGET (DAPAT DI-KLIK) -->
+      <div onclick="toggleScheduleDropdown()" class="p-4 flex items-center justify-between cursor-pointer select-none hover:bg-red-500/5 transition">
+        <div class="flex items-center space-x-3">
+          <div class="p-2.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 shrink-0">
+            <i data-lucide="clock" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <p id="liveDate" class="text-xs text-gray-400 font-medium">Loading Tanggal...</p>
+            <div class="flex items-center space-x-1 mt-0.5">
+              <p id="liveTodayStatus" class="text-xs font-bold text-red-400">Jadwal Otomatis</p>
+              <!-- TOMBOL PANAH ATAS / BAWAH -->
+              <div class="p-0.5 rounded bg-red-500/20 text-red-400">
+                <i id="toggleArrowIcon" data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform duration-300"></i>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <p id="liveDate" class="text-xs text-gray-400 font-medium">Loading Tanggal...</p>
-          <p id="liveTodayStatus" class="text-xs font-bold text-red-400">Jadwal Otomatis</p>
+        <div class="text-right">
+          <p id="liveClock" class="text-xl sm:text-2xl font-mono font-extrabold text-red-500 tracking-wider">00:00:00</p>
+          <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">WIB</span>
         </div>
       </div>
-      <div class="text-right">
-        <p id="liveClock" class="text-xl sm:text-2xl font-mono font-extrabold text-red-500 tracking-wider">00:00:00</p>
-        <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">WIB</span>
+
+      <!-- KONTEN DROPDOWN JADWAL HARI INI -->
+      <div id="todayScheduleDropdown" class="hidden border-t border-red-500/20 p-4 bg-black/40 space-y-3 transition-all">
+        <div class="flex items-center justify-between">
+          <span id="todayDropdownTitle" class="text-xs font-extrabold text-red-400 uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="calendar-check" class="w-4 h-4"></i> JADWAL HARI INI
+          </span>
+          <span class="text-[10px] text-gray-400">Otomatis Terdeteksi</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <!-- JADWAL MAPEL HARI INI -->
+          <div class="nexus-card p-3 rounded-lg border border-white/10 bg-black/50">
+            <h4 class="text-xs font-bold text-white mb-2 flex items-center gap-1.5 border-b border-white/10 pb-1.5">
+              <i data-lucide="book-open" class="w-3.5 h-3.5 text-rose-400"></i> Mapel Hari Ini
+            </h4>
+            <div id="todayMapelList" class="space-y-1.5 text-xs"></div>
+          </div>
+
+          <!-- JADWAL PIKET HARI INI -->
+          <div class="nexus-card p-3 rounded-lg border border-white/10 bg-black/50">
+            <h4 class="text-xs font-bold text-white mb-2 flex items-center gap-1.5 border-b border-white/10 pb-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i> Piket Kebersihan Hari Ini
+            </h4>
+            <div id="todayPiketList" class="grid grid-cols-2 gap-1.5 text-xs"></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -513,6 +571,20 @@
       document.getElementById('liveTodayStatus').innerText = `Jadwal Otomatis: ${dayName}`;
     }
 
+    // FUNGSI TOGGLE DROPDOWN JADWAL OTOMATIS
+    function toggleScheduleDropdown() {
+      const dropdown = document.getElementById('todayScheduleDropdown');
+      const icon = document.getElementById('toggleArrowIcon');
+
+      if (dropdown.classList.contains('hidden')) {
+        dropdown.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)'; // Panah berubah menghadap ke atas (↑)
+      } else {
+        dropdown.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)'; // Panah kembali ke bawah (↓)
+      }
+    }
+
     function openSingleImg(src, title, cap) {
       document.getElementById('singleImgSrc').src = src;
       document.getElementById('singleImgTitle').innerText = title;
@@ -602,6 +674,33 @@
       const now = new Date();
       const currentDayName = dayNamesIndo[now.getDay()];
 
+      // Render data untuk dropdown widget jam
+      document.getElementById('todayDropdownTitle').innerText = `JADWAL HARI INI (${currentDayName.toUpperCase()})`;
+
+      const todayMapelObj = scheduleMapel.find(m => m.hari.toLowerCase() === currentDayName.toLowerCase());
+      const todayPiketObj = schedulePiket.find(p => p.hari.toLowerCase() === currentDayName.toLowerCase());
+
+      if (todayMapelObj && todayMapelObj.mapel.length > 0) {
+        document.getElementById('todayMapelList').innerHTML = todayMapelObj.mapel.map(m => `
+          <div class="flex items-center justify-between bg-white/5 p-1.5 rounded border border-white/5">
+            <span class="text-gray-200 font-medium">${m.name}</span>
+            <span class="text-[10px] text-red-400 font-bold bg-red-950/60 px-1.5 py-0.5 rounded border border-red-500/30">${m.duration}</span>
+          </div>
+        `).join('');
+      } else {
+        document.getElementById('todayMapelList').innerHTML = `<p class="text-gray-400 italic text-[11px]">Tidak ada jadwal pelajaran hari ini (Libur).</p>`;
+      }
+
+      if (todayPiketObj && todayPiketObj.anggota.length > 0) {
+        document.getElementById('todayPiketList').innerHTML = todayPiketObj.anggota.map(nama => `
+          <div class="bg-white/5 p-1.5 rounded border border-white/5 text-center truncate">
+            <span class="text-gray-200 font-medium">${nama}</span>
+          </div>
+        `).join('');
+      } else {
+        document.getElementById('todayPiketList').innerHTML = `<p class="text-gray-400 italic text-[11px] col-span-2">Tidak ada jadwal piket hari ini (Libur).</p>`;
+      }
+
       document.getElementById('galleryPhotoGrid').innerHTML = galleryPhotos.map(p => `
         <div onclick="openSingleImg('${p.image}', '${p.title}', 'Foto Kenangan XII.2 MIPA')" class="nexus-card p-1.5 rounded-xl border border-white/10 active:scale-95 cursor-pointer group transition">
           <div class="aspect-video w-full rounded-lg overflow-hidden bg-slate-900 relative">
@@ -645,7 +744,7 @@
       const heroVid = document.getElementById('heroVideo');
       if (heroVid) {
         heroVid.play().catch(err => {
-          console.log("Autoplay ditahan oleh sistem browser:", err);
+          console.log("Autoplay ditahan oleh browser:", err);
         });
       }
 
